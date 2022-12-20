@@ -3,7 +3,7 @@ package mail_repository
 import "log"
 
 type Repository interface {
-	PersistEmails(emails []Mail)
+	PersistEmails(index string, emails []Mail)
 }
 
 type ZincRepository struct {
@@ -24,7 +24,7 @@ func InitRepository(httpClient Http) *ZincRepository {
 	return &ZincRepository{httpClient: httpClient}
 }
 
-func (r *ZincRepository) PersistEmails(emails []Mail) {
+func (r *ZincRepository) PersistEmails(index string, emails []Mail) {
 	documents := documentsBulk{Index: "emails", Records: emails}
 	_, success := r.httpClient.Post("/api/_bulkv2", documents)
 	if !success {
