@@ -1,4 +1,4 @@
-package indexer
+package mail_repository
 
 import (
 	"fmt"
